@@ -118,7 +118,7 @@ def display_message(message):
 
 # Record game result to a text file
 def record_game_result(result):
-    with open("D:\TriTueNhanTao_AI\src\game_result.txt", "a") as file:
+    with open("D:\TriTueNhanTao_AI\sudoku_pygame\game_result.txt", "a") as file:
         file.write(f"{time.strftime('%Y-%m-%d %H:%M:%S')}, {result}\n")
 
 

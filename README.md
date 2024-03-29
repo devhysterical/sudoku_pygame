@@ -41,3 +41,9 @@ Sudoku Game là một trò chơi Sudoku cổ điển được viết bằng ngô
    ```
 
 4. Trò chơi Sudoku sẽ mở trong cửa sổ mới và bạn có thể bắt đầu chơi.
+
+## Lưu ý
+- Sau khi cài đặt mã nguồn về máy, hãy mở file `game.py` và tìm đến dòng số 121 để thay đổi đường dẫn của file `game_result.txt` thành đường dẫn tuyệt đối trên máy của bạn.
+- File `game_result.txt` sẽ chứa kết quả của người chơi sau khi chơi xong. Nếu không thay đổi đường dẫn, file này sẽ được lưu trong thư mục chứa mã nguồn của trò chơi Sudoku.
+
+## Good luck & Have fun!
