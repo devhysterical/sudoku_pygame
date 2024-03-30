@@ -4,6 +4,8 @@
 
 Sudoku Game là một trò chơi Sudoku cổ điển được viết bằng ngôn ngữ lập trình Python, sử dụng thư viện Pygame để tạo giao diện đồ họa.
 
+Ý tưởng xây dựng trò chơi được tham khảo từ bài viết "Building and visualizing Sudoku Game Using Pygame" trên trang web [GeeksforGeeks](https://www.geeksforgeeks.org/building-and-visualizing-sudoku-game-using-pygame/).
+
 ## Yêu cầu hệ thống
 
 - Python 3.x đã được cài đặt trên máy tính của bạn.
