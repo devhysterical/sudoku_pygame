@@ -3,7 +3,7 @@ import sys
 import random
 import time
 
-# Initialize Pygame
+# Khởi tạo Pygame
 pygame.init()
 
 # Constants
@@ -14,9 +14,11 @@ WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 FONT = pygame.font.SysFont("comicsans", 40)
 TIMER_FONT = pygame.font.SysFont("comicsans", 30)
-TIMER_DURATION = 60
+TIMER_DURATION = (
+    60  # Tùy chỉnh bộ đếm thời gian cho trò chơi theo sở thích của người chơi
+)
 
-# Define the Sudoku board
+# Khởi tạo bảng Sudoku
 board = [
     [5, 3, 0, 0, 7, 0, 0, 0, 0],
     [6, 0, 0, 1, 9, 5, 0, 0, 0],
@@ -29,35 +31,35 @@ board = [
     [0, 0, 0, 0, 8, 0, 0, 7, 9],
 ]
 
-# Create a copy of the original board for reference
+# Tạo một bảng sao lưu ban đầu để kiểm tra kết quả
 original_board = [row[:] for row in board]
 
-# Initialize Pygame window
+# Khởi tạo cửa sổ Pygame
 window = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Sudoku Game")
 clock = pygame.time.Clock()
 
-# Define selected cell
+# Định vị ô đang được chọn
 selected = None
 
-# Timer variables
+# Biến thời gian
 start_time = time.time()
 timer_running = True
 
-# Variable to control auto-solving visualization
-auto_solve_visualization = False
+# Biến để điều khiển việc hiển thị tự giải
+auto_solve_visualization = True
 
 
-# Check if a number is valid in the selected cell
+# Hàm kiểm tra nếu một số là hợp lệ trong ô đã chọn
 def is_valid(num, pos):
     row, col = pos
-    # Check row
+    # Kiểm tra hàng
     if num in board[row]:
         return False
-    # Check column
+    # Kiểm tra cột
     if num in [board[i][col] for i in range(GRID_SIZE)]:
         return False
-    # Check 3x3 block
+    # Kiểm tra ô 3x3
     start_row, start_col = 3 * (row // 3), 3 * (col // 3)
     if num in [
         board[i][j]
@@ -68,8 +70,7 @@ def is_valid(num, pos):
     return True
 
 
-# Solve the Sudoku board using backtracking
-# Solve the Sudoku board using backtracking
+# Hàm giải bảng Sudoku bằng phương pháp backtracking
 def solve_board():
     empty_cell = find_empty()
     if not empty_cell:
@@ -89,13 +90,13 @@ def solve_board():
                 draw_board()
                 pygame.display.update()
                 pygame.time.delay(100)
-    # Stop the timer if solution found
+    # Dừng bộ đếm thời gian nếu tìm được lời giải
     global timer_running
     timer_running = False
     return False
 
 
-# Find the next empty cell in the board
+# Hàm tìm ô trống tiếp theo trên bảng
 def find_empty():
     for i in range(GRID_SIZE):
         for j in range(GRID_SIZE):
@@ -104,7 +105,7 @@ def find_empty():
     return None
 
 
-# Display message on the screen
+# Hiển thị thông báo trên màn hình
 def display_message(message):
     pygame.time.delay(1000)
     window.fill(WHITE)
@@ -116,22 +117,22 @@ def display_message(message):
     pygame.time.delay(3000)
 
 
-# Record game result to a text file
+# Ghi lại kết quả vào file text
 def record_game_result(result):
     with open("D:\TriTueNhanTao_AI\sudoku_pygame\game_result.txt", "a") as file:
         file.write(f"{time.strftime('%Y-%m-%d %H:%M:%S')}, {result}\n")
 
 
-# Function to draw the Sudoku board
+# Hàm để vẽ bảng Sudoku
 def draw_board():
     window.fill(WHITE)
-    # Draw the Sudoku grid
+    # Vẽ các đường kẻ trên bảng
     for i in range(1, GRID_SIZE + 1):
         line_width = 7 if i % 3 == 0 else 1
         if i == GRID_SIZE:
             pygame.draw.line(
                 window, BLACK, (0, HEIGHT - 50), (WIDTH, HEIGHT - 50), 3
-            )  # Horizontal line for timer
+            )  # Đường ngang cho bộ đếm thời gian
         else:
             pygame.draw.line(
                 window,
@@ -148,7 +149,7 @@ def draw_board():
                 line_width,
             )
 
-    # Highlight the selected cell
+    # Đánh dấu ô đang được chọn
     if selected is not None:
         pygame.draw.rect(
             window,
@@ -156,7 +157,7 @@ def draw_board():
             (selected[1] * CELL_SIZE, selected[0] * CELL_SIZE, CELL_SIZE, CELL_SIZE),
         )
 
-    # Draw the numbers on the board
+    # Khởi tạo các số trên bảng
     for i in range(GRID_SIZE):
         for j in range(GRID_SIZE):
             if board[i][j] != 0:
@@ -171,7 +172,7 @@ def draw_board():
                 )
                 window.blit(text, text_rect)
 
-    # Draw the countdown timer
+    # Vẽ bộ đếm thời gian
     elapsed_time = int(time.time() - start_time)
     remaining_time = max(0, TIMER_DURATION - elapsed_time)
     minutes = remaining_time // 60
@@ -198,7 +199,7 @@ while running:
                         board[selected[0]][selected[1]] = num
                         selected = None
                         if all(all(cell != 0 for cell in row) for row in board):
-                            display_message("Congratulations!.")
+                            display_message("Congratulations!")
                             record_game_result("Win")
                             board = [row[:] for row in original_board]
                 elif event.key == pygame.K_RETURN:
@@ -234,7 +235,7 @@ while running:
             pos = pygame.mouse.get_pos()
             selected = (pos[1] // CELL_SIZE, pos[0] // CELL_SIZE)
 
-    # Check if time's up
+    # Kiểm tra xem thời gian đã hết chưa
     elapsed_time = int(time.time() - start_time)
     if elapsed_time >= TIMER_DURATION:
         display_message("Time's up! You lose.")
