@@ -15,7 +15,7 @@ BLACK = (0, 0, 0)
 FONT = pygame.font.SysFont("comicsans", 40)
 TIMER_FONT = pygame.font.SysFont("comicsans", 30)
 TIMER_DURATION = (
-    60  # Tùy chỉnh bộ đếm thời gian cho trò chơi theo sở thích của người chơi
+    120  # Tùy chỉnh bộ đếm thời gian cho trò chơi theo sở thích của người chơi
 )
 
 # Khởi tạo bảng Sudoku
